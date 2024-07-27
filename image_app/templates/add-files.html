@@ -1,0 +1,38 @@
+{% extends "form.html" %}
+{% block forms %}
+
+        <h2 class="text-center text-2xl font-medium mb-10">Add Image</h2>
+        <form method="post" action="{% url 'add_files' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-5">
+                <lable for="id_file">File: </label>
+                <br/>
+                {% if type == 'I' %}
+                    <input type="file" name="file" accept="image/*" required="required" id="id_file" multiple>
+                {% else %}
+                    <input type="file" name="file" accept="video/*" required="required" id="id_file" multiple>
+                {% endif %}
+                {% if form.file.errors %}
+                    <ul class="flex flex-col gap-2 text-sm text-red-500">
+                        {% for error in form.file.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="mb-5">
+                {{ form.category.label_tag }}
+                <br/>
+                {{ form.category }}
+                {% if form.category.errors %}
+                    <ul class="flex flex-col gap-2 text-sm text-red-500">
+                        {% for error in form.category.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <input type="text" name="file_type" value="{{ type }}" hidden/>
+            <button type="submit" class="px-5 py-1 rounded-md bg-green-500 text-white font-semibold w-full">Add Image</button>
+        </form>
+{% endblock forms %}

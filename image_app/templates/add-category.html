@@ -1,0 +1,22 @@
+{% extends "form.html" %}
+{% block forms %}
+        <h2 class="text-center text-2xl font-medium mb-10">Add Catergory</h2>
+        <form method="post" action="{% url 'add_category' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-5">
+                <lable for="id_title">Title: </label>
+                <br/>
+                <input type="text" name="title" required="required" id="id_title" placeholder="category name" class="px-2 py-1 rounded-md border border-gray-500">
+                {% if form.title.errors %}
+                    <ul class="flex flex-col gap-2 text-sm text-red-500">
+                        {% for error in form.title.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <button type="submit" class="px-5 py-1 rounded-md bg-green-500 text-white font-semibold w-full">Add Image</button>
+        </form>
+
+
+{% endblock forms %}

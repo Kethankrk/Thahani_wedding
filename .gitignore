@@ -1,0 +1,7 @@
+.env
+/media/images/*
+*/*/__pycache__/
+*/__pycache__/
+*/migrations/*.py
+db.sqlite3
+.vscode

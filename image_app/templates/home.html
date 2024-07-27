@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="max-w-7xl mx-auto">
+    <!-- Navbar -->
+    {% include "partials/navbar.html" %}
+
+    <div class="grid grid-col-1 md:grid-cols-2">
+      <div class="mt-5 flex justify-center items-center">
+        <img src="{% static "images/cover.png" %}" />
+      </div>
+      <div class="flex flex-col justify-center mt-20">
+        <h1 class="text-4xl md:text-6xl mb-5 text-center md:text-start">
+          MUHAMMED ASKER ALI & FATHIMA THAHANI
+        </h1>
+        <p class="text-center md:text-start">
+          A beautiful way to preserve our happiest day
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="mb-10">
+    <h2 class="text-5xl text-center font-medium mt-[150px] mb-32">Image Catergory</h2>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+      {% for category in categories %}
+        {% include "partials/category-card.html" %} 
+      {% endfor %}
+    </div>
+  </section>
+{% endblock content %}
