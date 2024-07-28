@@ -4,15 +4,17 @@
     background-size: cover;
   }
 </style>
-<div class="rounded-md flex justify-center">
-  <div class="relative w-[300px] h-[250px] cover-bg-{{category.id}}">
-    <div
+<a href="/images/{{category.title}}">
+  <div class="rounded-md flex justify-center">
+    <div class="relative w-[300px] h-[250px] cover-bg-{{category.id}} rounded-md">
+      <div
       class="absolute bottom-0 left-0 right-0 bg-opacity-55 bg-black rounded-b-xl py-5 flex flex-col justify-center items-center hover:top-0 hover:rounded-t-xl transition-all"
-    >
+      >
       <p class="text-white font-semibold">{{ category.title }}</p>
       <p class="text-white text-sm font-medium">{{ category.count }} images</p>
     </div>
   </div>
 </div>
+</a>
 
 

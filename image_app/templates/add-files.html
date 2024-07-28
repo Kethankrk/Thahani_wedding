@@ -1,7 +1,12 @@
 {% extends "form.html" %}
 {% block forms %}
-
-        <h2 class="text-center text-2xl font-medium mb-10">Add Image</h2>
+        <h2 class="text-center text-2xl font-medium mb-10">
+        {% if type == 'I' %}    
+            Add Images
+        {% else %}
+            Add Videos
+        {% endif %}
+        </h2>
         <form method="post" action="{% url 'add_files' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-5">
@@ -33,6 +38,6 @@
                 {% endif %}
             </div>
             <input type="text" name="file_type" value="{{ type }}" hidden/>
-            <button type="submit" class="px-5 py-1 rounded-md bg-green-500 text-white font-semibold w-full">Add Image</button>
+            <button type="submit" class="px-10 py-2 rounded-xl bg-[#2e282a] text-white font-semibold w-full">Upload</button>
         </form>
 {% endblock forms %}

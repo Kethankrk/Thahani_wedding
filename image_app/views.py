@@ -92,6 +92,6 @@ def add_category(request):
 
 
 
-def list_files_view(request):
-    context = Category.objects.prefetch_related('sub_files').filter(title='Grooming').first().sub_files.all()
+def list_files_view(request, category_name):
+    context = Category.objects.prefetch_related('sub_files').filter(title=category_name).first().sub_files.all()
     return render(request, 'list-files.html', {'context': context})

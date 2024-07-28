@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="flex flex-wrap">
+<div class="mm-masonry mb-20 p-10" id="mm-masonry">
     {% for image in context %}
-        <div class="max-w-[400px]">
-            {% if image.file_type == "I" %}
-                <img src="{{ image.file.url }}"/>
-            {% else %}
-                <video controls>
+        <div class="mm-masonry__item">
+            <a href="{{image.file.url}}" data-lightbox="wedding" data-title="{{image.file.name}}">
+                {% if image.file_type == "I" %}
+                <img src="{{ image.file.url }}" class="mm-masonry__img"/>
+                {% else %}
+                <video controls class="mm-masonry__img">
                     <source src="{{image.file.url}}">
                     Your browser does not support the video tag.
                 </video> 
-            {% endif %}
+                {% endif %}
+            </a>
         </div>
     {% endfor %}
 </div>

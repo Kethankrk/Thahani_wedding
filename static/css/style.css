@@ -2,5 +2,12 @@ body {
   /* background-image: url("../images/bg.png"); */
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #e6e7b3;
+  background-color: #ede3ca;
 }
+
+#id_category {
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #ede3ca;
+}
+

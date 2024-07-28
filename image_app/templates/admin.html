@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body class="min-h-screen bg-yellow-100">
-        <section class="max-w-7xl mx-auto mt-20 px-10">
-            <div>
-                <h3 class="text-3xl font-semibold mb-10">Categories</h3>
-                <div class="flex gap-10 flex-wrap">
+{% extends "base.html" %}
+{% block content %}
+<section class="max-w-7xl mx-auto mt-20 px-10">
+    <div>
+        <h3 class="text-3xl font-semibold mb-10">Categories</h3>
+        <div class="flex gap-10 flex-wrap">
                     {% for category in context %}
-                    <div class="p-5 rounded-md w-fit bg-gray-50">
+                    <div class="p-5 rounded-md w-fit bg-[#e4d7b4]">
                         <p class="text-center font-medium text-xl">{{ category.title }}</p>
                         <p class="text-sm font-medium">Total images: <span class="font-bold">{{ category.sub_files.count }}</span></p>
                     </div>
@@ -23,11 +13,12 @@
                 </div>
             </div>
             <h3 class="font-semibold text-3xl mt-16 mb-10">Uploads</h3>
-            <div class="flex flex-col gap-5 w-fit">
-                <a href="{% url "add_category" %}"><button class="px-5 py-2 rounded-lg bg-green-500 font-medium hover:bg-green-600 w-full">Create new category</button></a>
-                <a href="{% url "add_files" %}?type=I" ><button class="px-5 py-2 rounded-lg bg-green-500 font-medium hover:bg-green-600 w-full">Upload Images</button></a>
-                <a href="{% url "add_files" %}?type=V" ><button class="px-5 py-2 rounded-lg bg-green-500 font-medium hover:bg-green-600 w-full">Upload Videos</button></a>
+            <div class="flex gap-5 flex-wrap text-white font-medium">
+                <a href="{% url "add_category" %}"><button class="px-10 py-3 rounded-xl bg-[#2e282a] hover:bg-[#252122] w-full">Create new category</button></a>
+                <a href="{% url "add_files" %}?type=I" ><button class="px-10 py-3 rounded-xl bg-[#2e282a] hover:bg-[#252122] w-full">Upload Images</button></a>
+                <a href="{% url "add_files" %}?type=V" ><button class="px-10 py-3 rounded-xl bg-[#2e282a] hover:bg-[#252122] w-full">Upload Videos</button></a>
             </div>
         </section>
-    </body>
-</html>
+        {% endblock content %}
+    {% comment %} </body>
+</html> {% endcomment %}

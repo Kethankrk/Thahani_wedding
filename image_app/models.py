@@ -21,3 +21,6 @@ class Files(models.Model):
     category = models.ForeignKey(Category, related_name='sub_files', on_delete=models.SET_NULL, null=True)
     file_type = models.CharField(max_length=1, choices=FILE_TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.file.name

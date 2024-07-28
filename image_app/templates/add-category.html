@@ -6,7 +6,7 @@
             <div class="mb-5">
                 <lable for="id_title">Title: </label>
                 <br/>
-                <input type="text" name="title" required="required" id="id_title" placeholder="category name" class="px-2 py-1 rounded-md border border-gray-500">
+                <input type="text" name="title" required="required" id="id_title" placeholder="category name" class="px-2 py-1 rounded-md bg-[#ebdfc7] shadow-sm">
                 {% if form.title.errors %}
                     <ul class="flex flex-col gap-2 text-sm text-red-500">
                         {% for error in form.title.errors %}
@@ -15,7 +15,7 @@
                     </ul>
                 {% endif %}
             </div>
-            <button type="submit" class="px-5 py-1 rounded-md bg-green-500 text-white font-semibold w-full">Add Image</button>
+            <button type="submit" class="px-10 py-2 rounded-xl bg-[#2e282a] text-white font-semibold w-full">Add Category</button>
         </form>
 
 
