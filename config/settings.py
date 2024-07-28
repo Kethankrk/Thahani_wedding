@@ -15,7 +15,9 @@ SECRET_KEY = "django-insecure-tq2*a!6zzcs$ci+eky910001ngf5-tg!kn6v5fg7*$nn_7ix)!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["dominant-vulture-select.ngrok-free.app", "localhost", "127.0.0.1", "https://dominant-vulture-select.ngrok-free.app"]
+
+CSRF_TRUSTED_ORIGINS = ["https://dominant-vulture-select.ngrok-free.app"]
 
 
 # Application definition
@@ -67,7 +69,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "db.sqlite3"
+        "NAME": "db/db.sqlite3"
         # "NAME": config("DB_NAME"),
         # "USER": config("DB_USER"),
         # "PASSWORD": config("DB_PASSWORD"),
