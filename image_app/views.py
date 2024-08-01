@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login
 from .form import LoginForm, FilesForm, CategoryForm
 from .models import Files, Category
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
+from .models import Files
 
 def homepage_view(request):
     categories = Category.objects.prefetch_related('sub_files').all()
@@ -95,3 +98,17 @@ def add_category(request):
 def list_files_view(request, category_name):
     context = Category.objects.prefetch_related('sub_files').filter(title=category_name).first().sub_files.all()
     return render(request, 'list-files.html', {'context': context})
+
+
+def download_file(request, file_id):
+    obj = get_object_or_404(Files, id=file_id)
+    file_path = obj.file.path
+    file_name = obj.file.name.split('/')[-1]
+
+    try:
+        with open(file_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/force-download')
+            response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+            return response
+    except FileNotFoundError:
+        raise Http404("File does not exist")

@@ -11,7 +11,7 @@
         <img src="{% static "images/cover.png" %}" />
       </div>
       <div class="flex flex-col justify-center mt-20">
-        <h1 class="text-4xl md:text-6xl mb-5 text-center md:text-start">
+        <h1 class="text-3xl md:text-6xl mb-5 text-center md:text-start font-semibold">
           MUHAMMED ASKER ALI & FATHIMA THAHANI
         </h1>
         <p class="text-center md:text-start">
@@ -21,9 +21,11 @@
     </div>
   </section>
   <section class="mb-10">
-    <h2 class="text-3xl lg:text-5xl text-center font-medium mt-[150px] mb-32">Image Catergory</h2>
-
+    <h2 class="text-3xl lg:text-5xl text-center font-medium mt-[150px] mb-20">Image Catergory</h2>
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+      {% if not categories%}
+        <p class="text-center font-medium text-sm">No images</p>
+      {% endif %}
       {% for category in categories %}
         {% include "partials/category-card.html" %} 
       {% endfor %}

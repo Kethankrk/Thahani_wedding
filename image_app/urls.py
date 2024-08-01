@@ -7,4 +7,5 @@ urlpatterns = [
     path("admin/", views.adminpage_view, name='adminpage'),
     path("admin/add-files/", views.add_files, name='add_files'),
     path("admin/add-category/", views.add_category, name='add_category'),
+    path("download/<str:file_id>/", views.download_file, name='download_image'),
 ]

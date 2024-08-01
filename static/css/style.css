@@ -2,7 +2,8 @@ body {
   /* background-image: url("../images/bg.png"); */
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #ede3ca;
+  /* background-color: #ede3ca; */
+  background-color: #E6E7B3;
 }
 
 #id_category {
@@ -10,4 +11,3 @@ body {
   border-radius: 10px;
   background-color: #ede3ca;
 }
-
