@@ -6,6 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from .models import Files
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
+from django.http import JsonResponse
+from django.urls import reverse
 
 def homepage_view(request):
     categories = Category.objects.prefetch_related('sub_files').all()
@@ -20,7 +26,7 @@ def homepage_view(request):
         if firt_image is None:
             url = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hTQHlnEVJc6lMKqO49vcfAAAAA%26pid%3DApi&f=1&ipt=bf69986c2a6966829622e755d592cd66a6ad42887e6df19aebdb9874e27bb2ac&ipo=images"
         else:
-            url = firt_image.file.url
+            url = firt_image.compressed_file.url
         filterd_data.append({
             "id": index,
             "title": category.title,
@@ -63,10 +69,26 @@ def add_files(request):
             category = form.cleaned_data['category']
             files = request.FILES.getlist('file')
             for file in files:
-                Files.objects.create(category=category, file=file, file_type=form.cleaned_data['file_type'])
-            return redirect("adminpage")
+                if form.cleaned_data['file_type'] == 'I':
+                    print("working")
+                    image = Image.open(file)
+                    image_io = BytesIO()
+                    image.save(image_io, format='JPEG', quality=10)
+                    compressed_image = InMemoryUploadedFile(
+                        image_io,
+                        'ImageField',
+                        f"{file.name.split('.')[0]}_compressed.jpg",
+                        'image/jpeg',
+                        sys.getsizeof(image_io),
+                        None
+                    )
+                    Files.objects.create(category=category, file=file, compressed_file=compressed_image, file_type=form.cleaned_data['file_type'])
+                else:
+                    Files.objects.create(category=category, file=file, compressed_file="lol", file_type=form.cleaned_data['file_type'])
+            return JsonResponse({'redirect_url': reverse('adminpage')})
         else:
             print("Bad request")
+            return JsonResponse({'error': 'Bad request'}, status=400)
     else:
         form = FilesForm()
         params = request.GET.get('type', None)

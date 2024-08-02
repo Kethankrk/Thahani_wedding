@@ -1,5 +1,6 @@
 .env
 /media/images/*
+/media/compressed/*
 
 */*/__pycache__/
 */__pycache__/

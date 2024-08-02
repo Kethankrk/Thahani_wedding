@@ -18,6 +18,7 @@ class Files(models.Model):
     }
     id = models.CharField(primary_key=True, max_length=36, default=uuid.uuid4)
     file = models.FileField(upload_to='images/')
+    compressed_file = models.FileField(upload_to='compressed/', null=True, blank=True)
     category = models.ForeignKey(Category, related_name='sub_files', on_delete=models.SET_NULL, null=True)
     file_type = models.CharField(max_length=1, choices=FILE_TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)

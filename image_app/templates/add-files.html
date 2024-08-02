@@ -1,43 +1,83 @@
 {% extends "form.html" %}
 {% block forms %}
-        <h2 class="text-center text-2xl font-medium mb-10">
-        {% if type == 'I' %}    
-            Add Images
-        {% else %}
-            Add Videos
-        {% endif %}
-        </h2>
-        <form method="post" action="{% url 'add_files' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="mb-5">
-                <lable for="id_file">File: </label>
-                <br/>
-                {% if type == 'I' %}
-                    <input type="file" name="file" accept="image/*" required="required" id="id_file" multiple>
-                {% else %}
-                    <input type="file" name="file" accept="video/*" required="required" id="id_file" multiple>
-                {% endif %}
-                {% if form.file.errors %}
-                    <ul class="flex flex-col gap-2 text-sm text-red-500">
-                        {% for error in form.file.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-            <div class="mb-5">
-                {{ form.category.label_tag }}
-                <br/>
-                {{ form.category }}
-                {% if form.category.errors %}
-                    <ul class="flex flex-col gap-2 text-sm text-red-500">
-                        {% for error in form.category.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-            <input type="text" name="file_type" value="{{ type }}" hidden/>
-            <button type="submit" class="px-10 py-2 rounded-xl bg-[#2e282a] text-white font-semibold w-full">Upload</button>
-        </form>
+    <h2 class="text-center text-2xl font-medium mb-10">
+    {% if type == 'I' %}    
+        Add Images
+    {% else %}
+        Add Videos
+    {% endif %}
+    </h2>
+    <form id="fileUploadForm" method="post" action="{% url 'add_files' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-5">
+            <label for="id_file">File: </label>
+            <br/>
+            {% if type == 'I' %}
+                <input type="file" name="file" accept="image/*" required="required" id="id_file" multiple>
+            {% else %}
+                <input type="file" name="file" accept="video/*" required="required" id="id_file" multiple>
+            {% endif %}
+            {% if form.file.errors %}
+                <ul class="flex flex-col gap-2 text-sm text-red-500">
+                    {% for error in form.file.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="mb-5">
+            {{ form.category.label_tag }}
+            <br/>
+            {{ form.category }}
+            {% if form.category.errors %}
+                <ul class="flex flex-col gap-2 text-sm text-red-500">
+                    {% for error in form.category.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <input type="text" name="file_type" value="{{ type }}" hidden/>
+        <button type="submit" class="px-10 py-2 rounded-xl bg-[#2e282a] text-white font-semibold w-full">Upload</button>
+    </form>
+
+    <!-- Progress bar -->
+    <div id="progressBarContainer" class="mt-5" style="display:none;">
+        <div id="progressBar" class="bg-green-500 h-5" style="width:0%;"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#fileUploadForm').on('submit', function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                var percentComplete = (e.loaded / e.total) * 100;
+                                $('#progressBarContainer').show();
+                                $('#progressBar').css('width', percentComplete + '%');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        window.location.href = response.redirect_url;
+                    },
+                    error: function (response) {
+                        alert('An error occurred while uploading the files.');
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock forms %}

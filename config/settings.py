@@ -15,7 +15,7 @@ SECRET_KEY = "django-insecure-tq2*a!6zzcs$ci+eky910001ngf5-tg!kn6v5fg7*$nn_7ix)!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["ghost-eminent-sensibly.ngrok-free.app","dominant-vulture-select.ngrok-free.app", "localhost", "127.0.0.1", "https://dominant-vulture-select.ngrok-free.app"]
+ALLOWED_HOSTS = ["*","0.0.0.0","ghost-eminent-sensibly.ngrok-free.app","dominant-vulture-select.ngrok-free.app", "localhost", "127.0.0.1", "https://dominant-vulture-select.ngrok-free.app"]
 
 CSRF_TRUSTED_ORIGINS = ["https://ghost-eminent-sensibly.ngrok-free.app","https://dominant-vulture-select.ngrok-free.app"]
 
